@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum PlayerOption
@@ -37,7 +38,7 @@ public class TTT : MonoBehaviour
 
     public void MakeOptimalMove()
     {
-
+        MoveCheck(Random.Range(0, 3), Random.Range(0, 3));
     }
 
     public void ChooseSpace(int column, int row)
@@ -62,6 +63,16 @@ public class TTT : MonoBehaviour
         else
         {
             Debug.Log("GAME OVER!");
+        }
+    }
+
+    public void MoveCheck(int column, int row) //Checking if an X or O is already placed to then choose another spot
+    {
+        ChooseSpace(Random.Range(0, 3), Random.Range(0, 3));
+
+        if (cells[column, row].current != PlayerOption.NONE)
+        {
+            ChooseSpace(Random.Range(0, 3), Random.Range(0, 3));
         }
     }
 
