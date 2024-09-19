@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -38,7 +39,87 @@ public class TTT : MonoBehaviour
 
     public void MakeOptimalMove()
     {
-        MoveCheck(Random.Range(0, 3), Random.Range(0, 3));
+        switch(currentPlayer) //switching moves/behaviors based on if the AI is either the X or the O
+        {
+            case PlayerOption.X:
+                if (IsEmptyBoard())
+                {
+                    ChooseSpace(0, 0);
+                }
+
+                else
+                {
+                    if (IsBoardX())
+                    {
+                        ChooseSpace(Random.Range(0, 3), Random.Range(0, 3));
+                    }
+                }
+                break;
+
+            case PlayerOption.O:
+
+                ChooseSpace(1, 1);
+
+                if (IsBoardO())
+                {
+                    ChooseSpace(Random.Range(0, 3), Random.Range(0, 3));
+                }
+                break;
+        }
+    }
+
+    bool IsEmptyBoard() //Checking if the board is Empty first
+    {
+        bool isEmpty = true;
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                if (cells[j, i].current != PlayerOption.NONE)
+                {
+                    isEmpty = false;
+                }
+            }
+        }
+
+        return isEmpty;
+    }
+
+    bool IsBoardX() //Checking if a space has an X or not
+    {
+        bool isX = false;
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                if (cells[j, i].current != PlayerOption.X)
+                {
+                    isX = true;
+                }
+            }
+        }
+
+        return isX;
+    }
+
+    bool IsBoardO() //Checking if a space has an O or not
+    {
+        bool isO = false;
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                if (cells[j, i].current != PlayerOption.O)
+                {
+                    isO = true;
+                }
+            }
+        }
+
+        return isO;
     }
 
     public void ChooseSpace(int column, int row)
@@ -63,16 +144,6 @@ public class TTT : MonoBehaviour
         else
         {
             Debug.Log("GAME OVER!");
-        }
-    }
-
-    public void MoveCheck(int column, int row) //Checking if an X or O is already placed to then choose another spot
-    {
-        ChooseSpace(Random.Range(0, 3), Random.Range(0, 3));
-
-        if (cells[column, row].current != PlayerOption.NONE)
-        {
-            ChooseSpace(Random.Range(0, 3), Random.Range(0, 3));
         }
     }
 
@@ -174,4 +245,5 @@ public class TTT : MonoBehaviour
 
         return PlayerOption.NONE;
     }
+
 }
