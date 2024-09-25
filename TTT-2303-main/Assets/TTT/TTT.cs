@@ -51,7 +51,7 @@ public class TTT : MonoBehaviour
                 {
                     if (IsBoardX())
                     {
-                        ChooseSpace(Random.Range(0, 3), Random.Range(0, 3));
+                        ChooseSpace(Random.Range(0, 3), Random.Range(0, 3)); //temporary value
                     }
                 }
                 break;
@@ -62,7 +62,7 @@ public class TTT : MonoBehaviour
 
                 if (IsBoardO())
                 {
-                    ChooseSpace(Random.Range(0, 3), Random.Range(0, 3));
+                    ChooseSpace(Random.Range(0, 3), Random.Range(0, 3)); //temporary value
                 }
                 break;
         }
